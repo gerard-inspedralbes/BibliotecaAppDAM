@@ -8,7 +8,7 @@ public class Biblioteca {
     private ArrayList<Llibre> llibres;
     private ArrayList<Usuari> usuaris;
     private HashMap<Usuari, ArrayList<Prestec>> prestecs;
-    private Arraylist<reserva> reserves;
+    private Arraylist<Reserva> reserves;
 
     public Biblioteca(ArrayList<Llibre> llibres, ArrayList<Usuari> usuaris) {
         this.llibres = llibres;
