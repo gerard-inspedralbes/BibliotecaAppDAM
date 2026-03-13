@@ -18,7 +18,9 @@ public class Biblioteca {
     public ArrayList<Usuari> getUsuaris() {
         return usuaris;
     }
-
+    public ArrayList<Llibre> getLlibres() {
+        return llibres;
+    }
     
 
     public boolean prestar(Llibre l, int idUsr) {
