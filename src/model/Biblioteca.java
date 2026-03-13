@@ -19,9 +19,7 @@ public class Biblioteca {
         return usuaris;
     }
 
-    public ArrayList<Llibre> getLlibres() {
-        return llibres;
-    }
+    
 
     public boolean prestar(Llibre l, int idUsr) {
         if (!l.isDisponible()) return false;
