@@ -1,6 +1,8 @@
 package model;
 
-public class Usuari {
+import java.util.List;
+
+public abstract class Usuari implements Comparable<Usuari>, List {
     private static int contadorUsuaris = 0;
     private int id;
     private String nom;
@@ -11,16 +13,23 @@ public class Usuari {
         this.nom = nom;
     }
 
+    public abstract int getMaxPrestects();
+
     public int getId() {
         return this.id;
     }
 
     @Override
     public String toString() {
-        return "Usuari{" +
+        return
                 "id=" + id +
-                ", nom='" + nom + '\'' +
-                '}';
+                ", nom='" + nom + '\'';
+    }
+
+    @Override
+    public int compareTo(Usuari usuari) {
+        return this.nom.length()-usuari.nom.length();
+        //return this.nom.compareTo(usuari.nom.toString());
     }
 
 

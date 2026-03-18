@@ -1,9 +1,7 @@
-import model.Biblioteca;
-import model.Llibre;
-import model.Prestec;
-import model.Usuari;
+import model.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -71,7 +69,9 @@ public class BibliotecaApp {
     }
 
     private static void mostrarUsuaris(boolean ambPrestects) {
-        for (Usuari u : biblioteca.getUsuaris()) {
+        ArrayList<Usuari> users = biblioteca.getUsuaris();
+        Collections.sort(users);
+        for (Usuari u : users) {
             System.out.println(u);
             if (ambPrestects){
                 for (Llibre l : biblioteca.getPrestecsUsuari(u)){
@@ -144,12 +144,18 @@ public class BibliotecaApp {
                 "J.R.R. Tolkien"
         };
 
-        String[] noms = {
+        String[] alumnes = {
                 "Anna",
                 "Marc",
                 "Laia",
                 "Joan",
                 "Clara"
+        };
+
+        String[] professors = {
+                "Carlos",
+                "Angela",
+                "Gerard"
         };
 
         // ArrayLists del sistema
@@ -162,9 +168,15 @@ public class BibliotecaApp {
             llibres.add(llibre);
         }
 
-        // Crear 5 usuaris
-        for (int i = 0; i < noms.length; i++) {
-            Usuari usuari = new Usuari( noms[i]);
+        // Crear 5 alumnes
+        for (int i = 0; i < alumnes.length; i++) {
+            Usuari usuari = new Alumne( alumnes[i]);
+            usuaris.add(usuari);
+        }
+
+        //crear 3 professors
+        for (int i = 0; i < professors.length; i++) {
+            Usuari usuari = new Professor( professors[i]);
             usuaris.add(usuari);
         }
         return new Biblioteca(llibres,usuaris);
