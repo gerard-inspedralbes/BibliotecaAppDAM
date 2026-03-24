@@ -24,8 +24,10 @@ public class Biblioteca {
     }
     
 
-    public boolean prestar(Llibre l, int idUsr) {
-        if (!l.isDisponible()) return false;
+    public boolean prestar(Llibre l, int idUsr) throws LlibreNoDisponibleException{
+        if (!l.isDisponible()) {
+            throw new LlibreNoDisponibleException("El llibre no està disponible");
+        }
 
         for (Usuari u : usuaris) {
             if (u.getId() == idUsr) {

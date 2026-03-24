@@ -2,7 +2,7 @@ package model;
 
 import java.util.List;
 
-public abstract class Usuari implements Comparable<Usuari>, List {
+public abstract class Usuari implements Comparable<Usuari> {
     private static int contadorUsuaris = 0;
     private int id;
     private String nom;

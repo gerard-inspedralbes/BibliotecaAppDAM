@@ -92,15 +92,15 @@ public class BibliotecaApp {
         for (Llibre l : llibres) {
 
             if (l.getid() == idLlib) {
-
-                if (l.isDisponible()) {
+                try{
                     if (biblioteca.prestar(l,idUsr)) {
                         System.out.println("Llibre prestat correctament");
                     }else{
-                        System.out.println("Error en ele procès");
+                        System.out.println("Error en el procés");
                     }
-                } else {
-                    System.out.println("El llibre ja està prestat");
+                }
+                catch (LlibreNoDisponibleException e){
+                    System.out.println("ERROR: "+ e.getMessage());
                 }
 
                 return;
