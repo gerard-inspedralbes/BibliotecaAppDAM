@@ -1,5 +1,7 @@
 import model.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -10,7 +12,15 @@ public class BibliotecaApp {
     private static Biblioteca biblioteca;
     private static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
-        biblioteca = inicialitzarBiblioteca();
+        File f = new File("llibres.txt");
+        if (f.exists()){
+            //ArrayList<Usuari> usuaris = FitxerManager.carregarLlibres("usuaris.txt");
+            ArrayList<Llibre> llibres = FitxerManager.carregarLlibres("llibres.txt");
+            biblioteca = inicialitzarBiblioteca(llibres);
+        }else {
+
+            biblioteca = inicialitzarBiblioteca();
+        }
 
         int opcio;
 
@@ -50,6 +60,7 @@ public class BibliotecaApp {
 
                 case 0:
                     System.out.println("Adeu!");
+                    FitxerManager.guardarLlibres(biblioteca.getLlibres(),"llibres.txt");
                     break;
             }
 
@@ -124,6 +135,41 @@ public class BibliotecaApp {
             System.out.println("Erorr en el procès");
         }
 
+    }
+
+    private static Biblioteca inicialitzarBiblioteca(ArrayList<Llibre> llibres){
+        // Arrays amb dades inicials només d'usuaris
+
+        String[] alumnes = {
+                "Anna",
+                "Marc",
+                "Laia",
+                "Joan",
+                "Clara"
+        };
+
+        String[] professors = {
+                "Carlos",
+                "Angela",
+                "Gerard"
+        };
+
+
+        ArrayList<Usuari> usuaris = new ArrayList<>();
+
+
+        // Crear 5 alumnes
+        for (int i = 0; i < alumnes.length; i++) {
+            Usuari usuari = new Alumne( alumnes[i]);
+            usuaris.add(usuari);
+        }
+
+        //crear 3 professors
+        for (int i = 0; i < professors.length; i++) {
+            Usuari usuari = new Professor( professors[i]);
+            usuaris.add(usuari);
+        }
+        return new Biblioteca(llibres,usuaris);
     }
 
 
