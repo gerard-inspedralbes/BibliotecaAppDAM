@@ -2,8 +2,6 @@ import DAO.DAOBiblioteca;
 import DAO.DAOBibliotecaFile;
 import model.*;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -55,7 +53,6 @@ public class BibliotecaApp {
 
                 case 0:
                     System.out.println("Adeu!");
-                    FitxerManager.guardarLlibres(biblioteca.getLlibres(),"llibres.txt");
                     break;
             }
 
@@ -64,8 +61,7 @@ public class BibliotecaApp {
     }
 
     private static void mostrarPrestecs() {
-        //TODO:mostrar tots els prestecs
-        System.out.println("TODO:mostrar tots els prestecs");
+
     }
 
     private static void mostrarLlibres() {
@@ -75,12 +71,12 @@ public class BibliotecaApp {
     }
 
     private static void mostrarUsuaris(boolean ambPrestects) {
-        ArrayList<Usuari> users = biblioteca.getUsuaris();
+        ArrayList<Usuari> users = daoBiblioteca.getUsuaris();
         Collections.sort(users);
         for (Usuari u : users) {
             System.out.println(u);
             if (ambPrestects){
-                for (Llibre l : biblioteca.getPrestecsUsuari(u)){
+                for (Llibre l : daoBiblioteca.getPrestecs(u.getId())){
                     System.out.println(l);
                 }
             }
@@ -88,8 +84,8 @@ public class BibliotecaApp {
     }
 
     public static void prestarLlibre() {
-        ArrayList<Usuari> usuaris = biblioteca.getUsuaris();
-        ArrayList<Llibre> llibres = biblioteca.getLlibres();
+        ArrayList<Usuari> usuaris = daoBiblioteca.getUsuaris();
+        ArrayList<Llibre> llibres = daoBiblioteca.getLlibres();
         mostrarUsuaris(false);
         int idUsr = Utils.llegirInt(sc,"ID del Usuari: ",1,llibres.size());
         mostrarLlibres();
@@ -97,7 +93,7 @@ public class BibliotecaApp {
 
         for (Llibre l : llibres) {
 
-            if (l.getid() == idLlib) {
+            if (l.getId() == idLlib) {
                 try{
                     if (biblioteca.prestar(l,idUsr)) {
                         System.out.println("Llibre prestat correctament");

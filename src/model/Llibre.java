@@ -15,7 +15,7 @@ public class Llibre {
         this.disponible = disponible;
     }
 
-    public int getid() {
+    public int getId() {
         return id;
     }
 
@@ -31,7 +31,7 @@ public class Llibre {
         return disponible;
     }
 
-    protected void setDisponible(boolean disponible) {
+    public void setDisponible(boolean disponible) {
         this.disponible = disponible;
     }
 

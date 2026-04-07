@@ -1,0 +1,5 @@
+1;George Orwell;1984;true
+2;Miguel de Cervantes;El Quijote;true
+3;Robert C. Martin;Clean Code;true
+4;J.K. Rowling;Harry Potter;true
+5;J.R.R. Tolkien;El Hobbit;true

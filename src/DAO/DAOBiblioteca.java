@@ -13,6 +13,6 @@ public interface DAOBiblioteca {
     public void prestarLlibre(Llibre l, int idUsr) throws LlibreNoDisponibleException;
     public ArrayList<Usuari> getUsuaris();
     public boolean retornarPrestec(int idUsr, int idLlib);
-    public ArrayList<Prestec> getPrestecs(int idUsr);
+    public ArrayList<Llibre> getPrestecs(int idUsr);
 
 }

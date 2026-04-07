@@ -7,7 +7,7 @@ public class Prestec {
     private Usuari usuari;
 
 
-    protected Prestec(Llibre llibre, Usuari usuari) {
+    public Prestec(Llibre llibre, Usuari usuari) {
         contadorPrestecs++;
         this.id = contadorPrestecs;
         this.llibre = llibre;
@@ -15,11 +15,17 @@ public class Prestec {
     }
 
 
-    protected Llibre getLlibre() {
+    public String toCSV() {
+        return this.usuari.getId() + ";" + this.llibre.getId();
+    }
+
+
+
+    public Llibre getLlibre() {
         return llibre;
     }
 
-    protected Usuari getUsuari() {
+    public Usuari getUsuari() {
         return usuari;
     }
 

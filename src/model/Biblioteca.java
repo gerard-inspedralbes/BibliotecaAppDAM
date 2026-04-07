@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.TreeMap;
 
 public class Biblioteca {
     private ArrayList<Llibre> llibres;
@@ -71,7 +70,7 @@ public class Biblioteca {
 
         for (Prestec p : llistaPrestecs) {
 
-            if (p.getLlibre().getid() == idLlib) {
+            if (p.getLlibre().getId() == idLlib) {
 
                 p.getLlibre().setDisponible(true);
                 llistaPrestecs.remove(p);
