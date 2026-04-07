@@ -13,6 +13,11 @@ public abstract class Usuari implements Comparable<Usuari> {
         this.nom = nom;
     }
 
+    public Usuari(int id, String nom) {
+        this.id = id;
+        this.nom = nom;
+    }
+
     public abstract int getMaxPrestects();
 
     public int getId() {
