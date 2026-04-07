@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class FitxerManager {
 
-
     public static ArrayList<Llibre> carregarLlibres(String file) {
         ArrayList<Llibre> llibres = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
