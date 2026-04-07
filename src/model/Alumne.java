@@ -6,6 +6,11 @@ public class Alumne extends Usuari {
         super(nom);
     }
 
+
+    public Alumne(int id, String nom) {
+        super(id, nom);
+    }
+
     @Override
     public int getMaxPrestects() {
         return MAX_PRESTECS;

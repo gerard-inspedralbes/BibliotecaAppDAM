@@ -6,6 +6,10 @@ public class Professor extends Usuari {
         super(nom);
     }
 
+    public Professor(int id, String nom) {
+        super(id, nom);
+    }
+
     @Override
     public int getMaxPrestects() {
         return MAX_PRESTECS;
