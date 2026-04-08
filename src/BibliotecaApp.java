@@ -1,4 +1,5 @@
 import DAO.DAOBiblioteca;
+import DAO.DAOBibliotecaBBDD;
 import DAO.DAOBibliotecaFile;
 import model.*;
 
@@ -11,7 +12,8 @@ import java.util.Scanner;
 public class BibliotecaApp {
     private static Biblioteca biblioteca;
     private static Scanner sc = new Scanner(System.in);
-    static DAOBiblioteca daoBiblioteca = new DAOBibliotecaFile();
+    //static DAOBiblioteca daoBiblioteca = new DAOBibliotecaFile();
+    static DAOBiblioteca daoBiblioteca = new DAOBibliotecaBBDD();
 
     public static void main(String[] args) {
 
