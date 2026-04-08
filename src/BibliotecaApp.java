@@ -12,6 +12,7 @@ public class BibliotecaApp {
     private static Biblioteca biblioteca;
     private static Scanner sc = new Scanner(System.in);
     static DAOBiblioteca daoBiblioteca = new DAOBibliotecaFile();
+
     public static void main(String[] args) {
 
 
@@ -61,7 +62,7 @@ public class BibliotecaApp {
     }
 
     private static void mostrarPrestecs() {
-
+//TODO:
     }
 
     private static void mostrarLlibres() {
@@ -94,131 +95,32 @@ public class BibliotecaApp {
         for (Llibre l : llibres) {
 
             if (l.getId() == idLlib) {
-                try{
-                    if (biblioteca.prestar(l,idUsr)) {
-                        System.out.println("Llibre prestat correctament");
-                    }else{
-                        System.out.println("Error en el procés");
-                    }
-                }
-                catch (LlibreNoDisponibleException e){
-                    System.out.println("ERROR: "+ e.getMessage());
-                }
+                try {
+                    daoBiblioteca.prestarLlibre(l, idUsr);
 
-                return;
+                } catch (LlibreNoDisponibleException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }
 
     public static void retornarLlibre() {
 
-        ArrayList<Usuari> usuaris = biblioteca.getUsuaris();
+        ArrayList<Usuari> usuaris = daoBiblioteca.getUsuaris();
 
         mostrarUsuaris(true);
 
         int idUsr = Utils.llegirInt(sc, "ID del Usuari: ", 1, usuaris.size());
 
-        int idLlib = Utils.llegirInt(sc, "ID del llibre a retornar: ", 1, biblioteca.getLlibres().size());
+        int idLlib = Utils.llegirInt(sc, "ID del llibre a retornar: ", 1, daoBiblioteca.getLlibres().size());
 
-        if (biblioteca.retornar(idUsr, idLlib)){
+        if (daoBiblioteca.retornarPrestec(idUsr, idLlib)){
             System.out.println("Llibre retornat correctament");
         }else{
             System.out.println("Erorr en el procès");
         }
 
     }
-
-    private static Biblioteca inicialitzarBiblioteca(ArrayList<Llibre> llibres){
-        // Arrays amb dades inicials només d'usuaris
-
-        String[] alumnes = {
-                "Anna",
-                "Marc",
-                "Laia",
-                "Joan",
-                "Clara"
-        };
-
-        String[] professors = {
-                "Carlos",
-                "Angela",
-                "Gerard"
-        };
-
-
-        ArrayList<Usuari> usuaris = new ArrayList<>();
-
-
-        // Crear 5 alumnes
-        for (int i = 0; i < alumnes.length; i++) {
-            Usuari usuari = new Alumne( alumnes[i]);
-            usuaris.add(usuari);
-        }
-
-        //crear 3 professors
-        for (int i = 0; i < professors.length; i++) {
-            Usuari usuari = new Professor( professors[i]);
-            usuaris.add(usuari);
-        }
-        return new Biblioteca(llibres,usuaris);
-    }
-
-
-    private static Biblioteca inicialitzarBiblioteca() {
-        // Arrays amb dades inicials
-        String[] titols = {
-                "1984",
-                "El Quijote",
-                "Clean Code",
-                "Harry Potter",
-                "El Hobbit"
-        };
-        String[] autors = {
-                "George Orwell",
-                "Miguel de Cervantes",
-                "Robert C. Martin",
-                "J.K. Rowling",
-                "J.R.R. Tolkien"
-        };
-
-        String[] alumnes = {
-                "Anna",
-                "Marc",
-                "Laia",
-                "Joan",
-                "Clara"
-        };
-
-        String[] professors = {
-                "Carlos",
-                "Angela",
-                "Gerard"
-        };
-
-        // ArrayLists del sistema
-        ArrayList<Llibre> llibres = new ArrayList<>();
-        ArrayList<Usuari> usuaris = new ArrayList<>();
-
-        // Crear 5 llibres
-        for (int i = 0; i < titols.length; i++) {
-            Llibre llibre = new Llibre( titols[i], autors[i], true);
-            llibres.add(llibre);
-        }
-
-        // Crear 5 alumnes
-        for (int i = 0; i < alumnes.length; i++) {
-            Usuari usuari = new Alumne( alumnes[i]);
-            usuaris.add(usuari);
-        }
-
-        //crear 3 professors
-        for (int i = 0; i < professors.length; i++) {
-            Usuari usuari = new Professor( professors[i]);
-            usuaris.add(usuari);
-        }
-        return new Biblioteca(llibres,usuaris);
-    }
-    
-    
 
 }

@@ -72,13 +72,16 @@ public class DAOBibliotecaFile implements DAOBiblioteca{
 
             while ((line = br.readLine()) != null) {
 
-                // Suposem format: tipus;nom
                 String[] parts = line.split(";");
 
-                if (parts[0].equals("ALUMNE")) {
-                    usuaris.add(new Alumne(parts[1]));
-                } else if (parts[0].equals("PROFESSOR")) {
-                    usuaris.add(new Professor(parts[1]));
+                int id = Integer.parseInt(parts[0]);
+                String tipus = parts[1];
+                String nom = parts[2];
+
+                if (tipus.equals("ALUMNE")) {
+                    usuaris.add(new Alumne(id, nom));
+                } else if (tipus.equals("PROFESSOR")) {
+                    usuaris.add(new Professor(id, nom));
                 }
             }
 
@@ -88,7 +91,6 @@ public class DAOBibliotecaFile implements DAOBiblioteca{
 
         return usuaris;
     }
-
     @Override
     public boolean retornarPrestec(int idUsr, int idLlib) {
         return false;
@@ -135,11 +137,14 @@ public class DAOBibliotecaFile implements DAOBiblioteca{
     private ArrayList<Prestec> getAllPrestecs() {
         ArrayList<Prestec> prestecs = new ArrayList<>();
 
+        ArrayList<Llibre> llibres = getLlibres();
+        ArrayList<Usuari> usuaris = getUsuaris();
+
         try (BufferedReader br = new BufferedReader(new FileReader(f_prestecs))) {
             String line;
 
             while ((line = br.readLine()) != null) {
-                prestecs.add(prestecFromCSV(line));
+                prestecs.add(prestecFromCSV(line, llibres, usuaris));
             }
 
         } catch (IOException e) {
@@ -160,12 +165,41 @@ public class DAOBibliotecaFile implements DAOBiblioteca{
         }
     }
 
-    private Prestec prestecFromCSV(String linia) {
+    private Prestec prestecFromCSV(String linia, List<Llibre> llibres, List<Usuari> usuaris) {
         String[] parts = linia.split(";");
 
         int idUsuari = Integer.parseInt(parts[0]);
         int idLlibre = Integer.parseInt(parts[1]);
 
-        return new Prestec( getLlibreById(idLlibre),getUsuariById(idUsuari));
+        Llibre l = null;
+        Usuari u = null;
+
+        for (Llibre llibre : llibres) {
+            if (llibre.getId() == idLlibre) {
+                l = llibre;
+                break;
+            }
+        }
+
+        for (Usuari usuari : usuaris) {
+            if (usuari.getId() == idUsuari) {
+                u = usuari;
+                break;
+            }
+        }
+
+        return new Prestec(l, u);
+    }
+
+    private int getNextLlibreId() {
+        int max = 0;
+
+        for (Llibre l : getLlibres()) {
+            if (l.getId() > max) {
+                max = l.getId();
+            }
+        }
+
+        return max + 1;
     }
 }
