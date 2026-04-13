@@ -93,7 +93,42 @@ public class DAOBibliotecaFile implements DAOBiblioteca{
     }
     @Override
     public boolean retornarPrestec(int idUsr, int idLlib) {
-        return false;
+
+        ArrayList<Prestec> prestecs = getAllPrestecs();
+        ArrayList<Llibre> llibres = getLlibres();
+
+        boolean trobat = false;
+
+        // eliminar prestec
+        Prestec perEliminar = null;
+
+        for (Prestec p : prestecs) {
+            if (p.getUsuari().getId() == idUsr &&
+                    p.getLlibre().getId() == idLlib) {
+
+                perEliminar = p;
+                trobat = true;
+                break;
+            }
+        }
+
+        if (!trobat) return false;
+
+        prestecs.remove(perEliminar);
+
+        // marcar llibre com disponible
+        for (Llibre l : llibres) {
+            if (l.getId() == idLlib) {
+                l.setDisponible(true);
+                break;
+            }
+        }
+
+        // guardar canvis
+        guardarPrestecs(prestecs);
+        guardarLlibres(llibres);
+
+        return true;
     }
 
     @Override

@@ -1,6 +1,4 @@
-import DAO.DAOBiblioteca;
-import DAO.DAOBibliotecaBBDD;
-import DAO.DAOBibliotecaFile;
+import DAO.*;
 import model.*;
 
 import java.util.ArrayList;
@@ -12,13 +10,22 @@ import java.util.Scanner;
 public class BibliotecaApp {
     private static Biblioteca biblioteca;
     private static Scanner sc = new Scanner(System.in);
-    //static DAOBiblioteca daoBiblioteca = new DAOBibliotecaFile();
-    static DAOBiblioteca daoBiblioteca = new DAOBibliotecaBBDD();
+    static DAOBiblioteca daoBiblioteca;
 
     public static void main(String[] args) {
 
-
         int opcio;
+
+        System.out.println("\n--- BIBLIOTECA INICI---");
+        System.out.println("1. BBDD");
+        System.out.println("2. Fitxers");
+
+        opcio = Utils.llegirInt(sc,"Opció: ",1,2);
+        if(opcio == 1) {
+            daoBiblioteca = DAOBibliotecaFactory.getDAO(TipusDAO.BBDD);
+        }else {
+            daoBiblioteca = DAOBibliotecaFactory.getDAO(TipusDAO.FILE);
+        }
 
         do {
 
@@ -64,7 +71,10 @@ public class BibliotecaApp {
     }
 
     private static void mostrarPrestecs() {
-//TODO:
+        System.out.println("\u001B[31m" +
+                "Aquesta funcionalitat està pendent d'implementació.\n" + "\u001B[0m" +
+                "De moment si vols veure els préstecs pots llistar tots els usuaris (opció 3 del menú)\n" +
+                "Sota de cada usuari apareixen els llibres que te prestats");
     }
 
     private static void mostrarLlibres() {
@@ -90,7 +100,7 @@ public class BibliotecaApp {
         ArrayList<Usuari> usuaris = daoBiblioteca.getUsuaris();
         ArrayList<Llibre> llibres = daoBiblioteca.getLlibres();
         mostrarUsuaris(false);
-        int idUsr = Utils.llegirInt(sc,"ID del Usuari: ",1,llibres.size());
+        int idUsr = Utils.llegirInt(sc,"ID del Usuari: ",1,usuaris.size());
         mostrarLlibres();
         int idLlib = Utils.llegirInt(sc,"ID del llibre a prestar: ",1,llibres.size());
 
@@ -101,7 +111,7 @@ public class BibliotecaApp {
                     daoBiblioteca.prestarLlibre(l, idUsr);
 
                 } catch (LlibreNoDisponibleException e) {
-                    throw new RuntimeException(e);
+                    System.out.println("\u001B[31m" + e.getMessage() + "\u001B[0m");
                 }
             }
         }
