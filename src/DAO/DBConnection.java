@@ -10,8 +10,8 @@ public class DBConnection {
     private Connection connection;
 
     private static final String URL = "jdbc:mysql://localhost:3306/la_meva_bd";
-    private static final String USER = "rafa";
-    private static final String PASSWORD = "rafa";
+    private static final String USER = "admin";
+    private static final String PASSWORD = "1234";
 
     // Constructor privat
     private DBConnection() {
